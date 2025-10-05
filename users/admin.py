@@ -5,7 +5,7 @@ from .models import CustomerProfile, Address
 class CustomerAdmin(UserAdmin):
 
     model = CustomerProfile
-    list_display = ('email','is_staff','is_active','date_joined')
+    list_display = ('id','email','is_staff','is_active','date_joined')
     list_filter = ('is_staff','is_active')
     search_fields = ('email',)
     ordering = ('email',)

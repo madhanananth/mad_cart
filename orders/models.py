@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 from products.models import Product
 from users.models import CustomerProfile,Address
 
@@ -7,7 +8,7 @@ from users.models import CustomerProfile,Address
 
 class Order(models.Model):
 
-    customer = models.ForeignKey(CustomerProfile,on_delete=models.CASCADE, related_name='orders')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete=models.CASCADE )
     billing_address = models.ForeignKey(
         'users.Address',
         on_delete=models.SET_NULL,
