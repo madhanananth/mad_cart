@@ -46,7 +46,7 @@ class CustomerProfileViewSet(viewsets.ViewSet):
 
 
 class AddressViewSet(viewsets.ViewSet):
-
+    
     @action(detail=False, methods=['post'])
     def add_address(self, request):
         serializer = AddressSerializer(data=request.data,context={'request': request})
