@@ -33,6 +33,7 @@ class AddressSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         request = self.context.get('request')
         customer = request.user
-        return Address.objects.create(customer=customer, **validated_data)
+        address = Address.objects.create(customer=customer, **validated_data)
+        return address
 
 

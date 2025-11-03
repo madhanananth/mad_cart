@@ -1,4 +1,5 @@
 from rest_framework import viewsets,status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from.models import Address
@@ -45,13 +46,72 @@ class CustomerProfileViewSet(viewsets.ViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+#Address view set here...
+
 class AddressViewSet(viewsets.ViewSet):
+
+    permission_classes =[IsAuthenticated]
+
+    #list the Address
+    @action(detail=False, methods=["get"])
+    def list_address(self, request):
+         addresses =Address.objects.filter(customer =request.user)
+         serializer = AddressSerializer(addresses, many=True)
+         return Response(serializer.data, status=status.HTTP_200_OK)
     
-    @action(detail=False, methods=['post'])
-    def add_address(self, request):
+    #get the single Address by Id
+    @action(detail=True, methods=["get"])
+    def retrieve_address(self, request,pk=None):
+
+        try:
+            address =Address.objects.get(pk=pk ,customer =request.user)
+
+        except Address.DoesNotExist:
+            return Response({'Error' : 'Address not Found'}, status=status.HTTP_404_NOT_FOUND )
+        
+        serializer = AddressSerializer(address)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    # Create Address Endpoint
+
+    @action(detail=False, methods=['post'] )
+    def create_address(self, request):
+
         serializer = AddressSerializer(data=request.data,context={'request': request})
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    #PUT - Update by id
+
+    @action(detail=True, methods=["put"])
+    def update_address(self, request, pk=None):
+
+        try:
+            address = Address.objects.get(pk=pk, customer= request.user)
+
+        except Address.DoesNotExist:
+            return Response({'Error':'Addreess not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = AddressSerializer(address, data=request.data , context={'request':request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    #   DELETE - addess delete by id
+
+    @action(detail=True, methods=['delete'])
+    def delete_address(self,request, pk=None):
+        try:
+            address = Address.objects.get(pk=pk, customer=request.user)
+
+        except Address.DoesNotExist:
+            return Response({'Error': 'Address not Found'}, status=status.HTTP_400_BAD_REQUEST)  
+        
+        address.delete()
+        return Response({'Messages':'Address deleted Successfully..'}, status=status.HTTP_204_NO_CONTENT)
 
