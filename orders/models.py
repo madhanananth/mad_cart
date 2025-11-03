@@ -36,7 +36,7 @@ class Order(models.Model):
         return sum(item.quantity * item.price for item in self.items.all())
 
     def __str__(self):
-        return f"Order #{self.id} by {self.customer.user.username}"
+        return f"Order #{self.id} by {self.user.username}"
     
 class OrderItem(models.Model):
 

@@ -22,5 +22,10 @@ class CustomerAdmin(UserAdmin):
         }),
     )
 
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ('id', 'customer', 'address_type', 'city', 'state', 'postal_code')
+    search_fields = ('customer__email', 'city', 'state')
+    list_filter = ('address_type', 'city', 'state')
+
 admin.site.register(CustomerProfile,CustomerAdmin)
-admin.site.register(Address)
+admin.site.register(Address,AddressAdmin)

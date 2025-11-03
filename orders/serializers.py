@@ -5,13 +5,6 @@ from products.serializers import ProductSerializer
 from users.serializers import AddressSerializer
 
 
-# class OrderItemSerializer(serializers.ModelSerializer):
-#     product = ProductSerializer(read_only=True)
-
-#     class Meta:
-#         model = OrderItem
-#         fields = ['id', 'product', 'quantity', 'price']
-
 class OrderItemSerializer(serializers.ModelSerializer):
 
     product = ProductSerializer(read_only =True)
@@ -45,10 +38,10 @@ class OrderSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['user','is_paid','ordered_at','status']
 
-        def create(self, validated_data):
-            items_data = validated_data.pop('items',[])
-            order= Order.objects.create(**validated_data)
+    def create(self, validated_data):
+        items_data = validated_data.pop('items',[])
+        order= Order.objects.create(**validated_data)
 
-            for item in items_data:
-                OrderItem.objects.create(order=order,**item)
-            return order    
+        for item in items_data:
+            OrderItem.objects.create(order=order,**item)
+        return order    
