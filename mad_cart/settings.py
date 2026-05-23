@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+from datetime import timedelta
 import os
 from pathlib import Path
 from dotenv  import load_dotenv
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     'payments',
     'cart',
     'searches',
+    'wishlists',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +152,11 @@ REST_FRAMEWORK ={
 }
 
 AUTH_USER_MODEL = 'users.CustomerProfile'
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),   # increase time
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),      # refresh token
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
