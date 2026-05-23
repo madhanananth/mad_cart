@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate
 
 
 
-# Create your views here.
+# customer view
 
 class CustomerProfileViewSet(viewsets.ViewSet):
 
