@@ -167,8 +167,8 @@ REST_FRAMEWORK ={
 AUTH_USER_MODEL = 'users.CustomerProfile'
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),   # increase time
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),      # refresh token
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),   # increase time
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),      # refresh token
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_HEADER_TYPES': ('Bearer',),
