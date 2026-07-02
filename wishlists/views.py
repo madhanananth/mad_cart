@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from django.db import IntegrityError
 
 from products.models import Product
-from .serializers import WishlistCreateSErializer, WishlistSerializer
+from .serializers import WishlistCreateSerializer, WishlistSerializer
 from .models import Wishlist
 
 
@@ -26,7 +26,7 @@ class WishlistViewSet(viewsets.ModelViewSet):
         }, status=status.HTTP_200_OK)
     
     def create(self, request):
-        serializer = WishlistCreateSErializer(data=request.data)
+        serializer = WishlistCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         product_id = serializer.validated_data['product_id']
@@ -70,7 +70,7 @@ class WishlistViewSet(viewsets.ModelViewSet):
         
     @action(detail=False, methods=['post'])
     def toggle(self, request):
-        serializer = WishlistCreateSErializer(data=request.data)
+        serializer = WishlistCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         product_id = serializer.validated_data['product_id']
 

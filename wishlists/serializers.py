@@ -4,7 +4,7 @@ from products.serializers import ProductSerializer
 from products.models import Product
 
 
-class WishlistSerializer(serializers.Serializer):
+class WishlistSerializer(serializers.ModelSerializer):
 
     product = ProductSerializer( read_only=True )
 
@@ -13,7 +13,7 @@ class WishlistSerializer(serializers.Serializer):
          fields = ['id','product','created_at']
          read_only_fields= ['id','created_at']
 
-class WishlistCreateSErializer(serializers.Serializer):
+class WishlistCreateSerializer(serializers.Serializer):
      
      product_id =serializers.IntegerField()
 
