@@ -22,7 +22,7 @@ class WishlistViewSet(viewsets.ModelViewSet):
 
         return Response({
             'count': queryset.count(),
-            'result': serializer.data
+            'results': serializer.data
         }, status=status.HTTP_200_OK)
     
     def create(self, request):
