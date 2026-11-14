@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'cloudinary_storage',
     'cloudinary',
-    "corsheaders",
     #  apps
     'products',
     'orders',
