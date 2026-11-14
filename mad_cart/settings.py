@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'cloudinary_storage',
     'cloudinary',
+    "corsheaders",
     #  apps
     'products',
     'orders',
@@ -78,6 +79,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://madhanananth-madcartfront.vercel.app",
 ]
 
 ROOT_URLCONF = 'mad_cart.urls'
